@@ -438,14 +438,19 @@ export function ConsolePage() {
               type: 'string',
               description: 'Format in which you want to take the course, there are two options, text or Audio',
             },
+            //Dificultad
+             difficulty: {
+              type: 'string',
+              description: 'Difficulty level of the course, there are three options, basic, intermediate, advanced.',
+             }
           },
-          required: ['requested_course', 'objective', 'format'],
+          required: ['requested_course', 'objective', 'format', 'difficulty'],
         },
       },
-      async ({ requested_course, objective, format}: { [key: string]: any }) => {
-        
-        // Send the course data to the parent window JONNY
-        window.parent.postMessage({ type: "send_course", requested_course, objective, format }, "*");
+      async ({ requested_course, objective, format, difficulty}: { [key: string]: any }) => {
+        // Send the course data to the parent window JONNY        
+        window.parent.postMessage({ type: "send_course", requested_course, objective, format, difficulty }, "*");
+        console.log("Course data sent to parent window: ", requested_course, objective, format, difficulty);
         
         return { ok: true };
       }
